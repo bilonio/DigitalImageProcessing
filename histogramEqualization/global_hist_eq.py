@@ -4,9 +4,10 @@ from PIL import Image
 
 
 def get_equalization_transform_of_img(img):
-    hist, bins = np.histogram(img, bins=256, range=(0, 256), density=True)
-    u = np.zeros(hist.shape)
-    y = np.zeros(hist.shape)
+
+    hist=custom_histogram(img)
+    u = [0]*len(hist)
+    y = [0]*len(hist)
     u[0] = hist[0]
     y[0] = 0
     for k in range(1, 256):
@@ -24,3 +25,20 @@ def perform_global_hist_transform(img):
         for j in range(img.shape[1]):
             equalized_img[i, j] = equalized_img_hist[img[i, j]]
     return equalized_img
+
+def custom_histogram(img):
+    # Initialize histogram
+    hist = [0] * 256
+
+    # Calculate histogram
+    for row in img:
+        for pixel in row:
+            hist[pixel] += 1
+
+    # Normalize histogram to get probability density
+    total_pixels = sum(hist)
+    hist = [count / total_pixels for count in hist]
+
+    return hist
+
+
