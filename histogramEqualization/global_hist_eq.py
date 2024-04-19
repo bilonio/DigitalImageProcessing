@@ -5,9 +5,9 @@ from PIL import Image
 
 def get_equalization_transform_of_img(img):
 
-    hist=custom_histogram(img)
-    u = [0]*len(hist)
-    y = [0]*len(hist)
+    hist = custom_histogram(img)
+    u = [0] * len(hist)
+    y = [0] * len(hist)
     u[0] = hist[0]
     y[0] = 0
     for k in range(1, 256):
@@ -26,6 +26,7 @@ def perform_global_hist_transform(img):
             equalized_img[i, j] = equalized_img_hist[img[i, j]]
     return equalized_img
 
+
 def custom_histogram(img):
     # Initialize histogram
     hist = [0] * 256
@@ -40,5 +41,3 @@ def custom_histogram(img):
     hist = [count / total_pixels for count in hist]
 
     return hist
-
-
