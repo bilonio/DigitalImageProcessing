@@ -5,7 +5,10 @@ from PIL import Image
 from global_hist_eq import perform_global_hist_transform
 from global_hist_eq import get_equalization_transform_of_img
 from adaptive_hist_eq import calculate_eq_transformations_of_regions
-from adaptive_hist_eq import perform_adaptive_hist_equalization,perform_adaptive_no_interp
+from adaptive_hist_eq import (
+    perform_adaptive_hist_equalization,
+    perform_adaptive_no_interp,
+)
 
 # set the filepath to the image file
 filename = "input_img.png"
@@ -32,7 +35,7 @@ plt.figure(figsize=(13, 7))
 
 plt.subplot(2, 2, 2)
 plt.imshow(img_array, cmap="gray")
-plt.title("Original Image",fontsize=16)
+plt.title("Original Image", fontsize=16)
 plt.axis("off")
 
 
@@ -45,13 +48,13 @@ plt.ylabel("Frequency", fontsize=14)
 
 plt.subplot(2, 2, 4)
 plt.imshow(equalized_img, cmap="gray")
-plt.title("Image with global equalization",fontsize=16)
+plt.title("Image with global equalization", fontsize=16)
 plt.axis("off")
 
 
 plt.subplot(2, 2, 3)
 plt.bar(equalized_hist, height=hist, width=1)
-plt.title("Histogram with global equalization",fontsize=16)
+plt.title("Histogram with global equalization", fontsize=16)
 plt.xlabel("Pixel Intensity", fontsize=14)
 plt.ylabel("Frequency", fontsize=14)
 
@@ -82,24 +85,24 @@ plt.figure(figsize=(13, 7))
 
 plt.subplot(1, 2, 2)
 plt.imshow(equalized_img_regions, cmap="gray")
-plt.title("Image with adaptive equalization",fontsize=16)
+plt.title("Image with adaptive equalization", fontsize=16)
 plt.axis("off")
 
 plt.subplot(1, 2, 1)
 plt.bar(region_bins[:-1], regions_hist, width=1)
-plt.title("Histogram with adaptive equalization",fontsize=16)
-plt.xlabel("Pixel Intensity",fontsize=14)
-plt.ylabel("Probability Density",fontsize=14)
+plt.title("Histogram with adaptive equalization", fontsize=16)
+plt.xlabel("Pixel Intensity", fontsize=14)
+plt.ylabel("Probability Density", fontsize=14)
 
 plt.figure(figsize=(13, 7))
 plt.subplot(1, 2, 2)
 plt.imshow(equalized_img_regions_no_interp, cmap="gray")
-plt.title("Image with adaptive equalization without interpolation",fontsize=16)
+plt.title("Image with adaptive equalization without interpolation", fontsize=16)
 plt.axis("off")
 
 plt.subplot(1, 2, 1)
 plt.imshow(equalized_img_regions, cmap="gray")
-plt.title("Image with adaptive equalization with interpolation",fontsize=16)
+plt.title("Image with adaptive equalization with interpolation", fontsize=16)
 plt.axis("off")
 plt.tight_layout()
 plt.show()
