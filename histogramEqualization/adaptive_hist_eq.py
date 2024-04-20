@@ -165,3 +165,29 @@ def find_pixel_regions(img_array, region_len_h, region_len_w, x, y):
     )
 
     return pixel_region
+
+def perform_adaptive_no_interp(img_array, region_len_h, region_len_w):
+    equalized_img = np.zeros(
+        img_array.shape
+    )  # initialize the equalization transforms of the regions
+    region_to_eq_transform = calculate_eq_transformations_of_regions(
+        img_array,
+        region_len_h,
+        region_len_w,  # region_len_h and region_len_w are the dimensions of the region
+    )
+
+    for x in range(0, img_array.shape[0]):
+        for y in range(0, img_array.shape[1]):
+                pixel_region = find_pixel_regions(
+                    img_array,
+                    region_len_h,
+                    region_len_w,
+                    x,
+                    y,  # get the region of the pixel
+                )
+                equalized_img[x, y] = region_to_eq_transform[pixel_region][
+                    img_array[
+                        x, y
+                    ]  # get the equalization transform of the pixel region
+                ] 
+    return equalized_img  # return the equalized image
