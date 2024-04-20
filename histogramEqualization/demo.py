@@ -67,22 +67,23 @@ equalised_regions_transforms = calculate_eq_transformations_of_regions(
 equalized_img_regions = perform_adaptive_hist_equalization(
     img_array, region_len_h=36, region_len_w=48
 )
-regions_hist, region_bins = np.histogram(equalized_img_regions.ravel(), bins=256, range=(0, 256))
+regions_hist, region_bins = np.histogram(
+    equalized_img_regions.ravel(), bins=256, range=(0, 256)
+)
 # Create a new figure
 plt.figure(figsize=(13, 7))
 
-plt.subplot(1,2,2)
+plt.subplot(1, 2, 2)
 plt.imshow(equalized_img_regions, cmap="gray")
 plt.title("Image with adaptive equalization")
 plt.axis("off")
 
-plt.subplot(1,2,1)
-plt.bar(region_bins[:-1], regions_hist, width=1)  
-plt.title('Histogram with adaptive equalization')
-plt.xlabel('Pixel Intensity')
-plt.ylabel('Probability Density')
+plt.subplot(1, 2, 1)
+plt.bar(region_bins[:-1], regions_hist, width=1)
+plt.title("Histogram with adaptive equalization")
+plt.xlabel("Pixel Intensity")
+plt.ylabel("Probability Density")
 
 
 plt.tight_layout()
 plt.show()
-
