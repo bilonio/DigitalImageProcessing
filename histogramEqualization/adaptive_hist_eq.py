@@ -43,7 +43,7 @@ def perform_adaptive_hist_equalization(img_array, region_len_h, region_len_w):
                 or y >= img_array.shape[1] - region_len_w // 2
             ):
                 pixel_region = find_pixel_regions(
-                    img_array,
+                    
                     region_len_h,
                     region_len_w,
                     x,
@@ -60,7 +60,7 @@ def perform_adaptive_hist_equalization(img_array, region_len_h, region_len_w):
             ):
                 top_left, top_right, bottom_left, bottom_right = (
                     find_nearest_contextual_regions(  # get the nearest contextual regions
-                        x, y, region_len_h, region_len_w, img_array
+                        x, y, region_len_h, region_len_w
                     )
                 )
                 top_left_center = get_center_from_region(
@@ -118,31 +118,31 @@ def get_center_from_region(top_left, region_len_h, region_len_w):
     return center
 
 
-def find_nearest_contextual_regions(x, y, region_len_h, region_len_w, img_array):
+def find_nearest_contextual_regions(x, y, region_len_h, region_len_w):
 
     top_left = find_pixel_regions(  # get the top left region of the pixel
-        img_array,
+        
         region_len_h,
         region_len_w,
         x - region_len_h // 2,
         y - region_len_w // 2,
     )
     top_right = find_pixel_regions(  # get the top right region of the pixel
-        img_array,
+        
         region_len_h,
         region_len_w,
         x - region_len_h // 2,
         y + region_len_w // 2,
     )
     bottom_left = find_pixel_regions(  # get the bottom left region of the pixel
-        img_array,
+        
         region_len_h,
         region_len_w,
         x + region_len_h // 2,
         y - region_len_w // 2,
     )
     bottom_right = find_pixel_regions(  # get the bottom right region of the pixel
-        img_array,
+        
         region_len_h,
         region_len_w,
         x + region_len_h // 2,
@@ -157,7 +157,7 @@ def find_nearest_contextual_regions(x, y, region_len_h, region_len_w, img_array)
     )  # return the nearest contextual regions
 
 
-def find_pixel_regions(img_array, region_len_h, region_len_w, x, y):
+def find_pixel_regions(region_len_h, region_len_w, x, y):
     pixel_region = (
         (x // region_len_h) * region_len_h,  # get the region of the pixel
         (y // region_len_w) * region_len_w,
@@ -179,7 +179,7 @@ def perform_adaptive_no_interp(img_array, region_len_h, region_len_w):
     for x in range(0, img_array.shape[0]):
         for y in range(0, img_array.shape[1]):
             pixel_region = find_pixel_regions(
-                img_array,
+                
                 region_len_h,
                 region_len_w,
                 x,
