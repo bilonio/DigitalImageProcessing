@@ -59,7 +59,7 @@ def perform_adaptive_hist_equalization(img_array, region_len_h, region_len_w):
                 and y + region_len_w // 2 < img_array.shape[1]
             ):
                 top_left, top_right, bottom_left, bottom_right = (
-                    find_nearest_contextual_centers(  # get the nearest contextual regions
+                    find_nearest_contextual_regions(  # get the nearest contextual regions
                         x, y, region_len_h, region_len_w, img_array
                     )
                 )
@@ -118,7 +118,7 @@ def get_center_from_region(top_left, region_len_h, region_len_w):
     return center
 
 
-def find_nearest_contextual_centers(x, y, region_len_h, region_len_w, img_array):
+def find_nearest_contextual_regions(x, y, region_len_h, region_len_w, img_array):
 
     top_left = find_pixel_regions(  # get the top left region of the pixel
         img_array,
