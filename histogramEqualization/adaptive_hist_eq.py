@@ -149,7 +149,6 @@ def find_nearest_contextual_regions(x, y, region_len_h, region_len_w, img_array)
         y + region_len_w // 2,
     )
 
-
     return (
         top_left,
         top_right,
@@ -166,6 +165,7 @@ def find_pixel_regions(img_array, region_len_h, region_len_w, x, y):
 
     return pixel_region
 
+
 def perform_adaptive_no_interp(img_array, region_len_h, region_len_w):
     equalized_img = np.zeros(
         img_array.shape
@@ -178,16 +178,14 @@ def perform_adaptive_no_interp(img_array, region_len_h, region_len_w):
 
     for x in range(0, img_array.shape[0]):
         for y in range(0, img_array.shape[1]):
-                pixel_region = find_pixel_regions(
-                    img_array,
-                    region_len_h,
-                    region_len_w,
-                    x,
-                    y,  # get the region of the pixel
-                )
-                equalized_img[x, y] = region_to_eq_transform[pixel_region][
-                    img_array[
-                        x, y
-                    ]  # get the equalization transform of the pixel region
-                ] 
+            pixel_region = find_pixel_regions(
+                img_array,
+                region_len_h,
+                region_len_w,
+                x,
+                y,  # get the region of the pixel
+            )
+            equalized_img[x, y] = region_to_eq_transform[pixel_region][
+                img_array[x, y]  # get the equalization transform of the pixel region
+            ]
     return equalized_img  # return the equalized image
