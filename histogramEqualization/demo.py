@@ -60,26 +60,23 @@ plt.ylabel("Frequency", fontsize=14)
 
 plt.tight_layout()
 
-# get the histogram of equalised image with contextual regions
-equalised_regions_transforms = calculate_eq_transformations_of_regions(
-    img_array, region_len_h=36, region_len_w=48
-)
 
 
 # get the equalised image with contextual regions
 equalized_img_regions = perform_adaptive_hist_equalization(
-    img_array, region_len_h=36, region_len_w=48
+    img_array, region_len_h=64, region_len_w=48
 )
+
+#get the histogram of equalized image with regions
 regions_hist, region_bins = np.histogram(
     equalized_img_regions.ravel(), bins=256, range=(0, 256)
 )
 
+#get the equalized image without interpolation 
 equalized_img_regions_no_interp = perform_adaptive_no_interp(
-    img_array, region_len_h=36, region_len_w=48
+    img_array, region_len_h=64, region_len_w=48
 )
-regions_hist_no_interp, region_bins_no_interp = np.histogram(
-    equalized_img_regions_no_interp.ravel(), bins=256, range=(0, 256)
-)
+
 # Create a new figure
 plt.figure(figsize=(13, 7))
 
