@@ -1,15 +1,16 @@
 from PIL import Image
 from scipy.ndimage import convolve
 from dip_2024_hw3_material import hw3_helper_utils
-import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 from wiener_filtering import my_wiener_filter
 from inverseFilter import inverse_filter
 from find_optimal import find_optimal_k
+from plot_region_optimal import plot_region_optimal
+
 
 # 'x' is the input grayscale image, of type float and normalized to [0,1]
-x = Image.open("wienerFilter/dip_2024_hw3_material/checkerboard.tif")  # read the image
+x = Image.open("wienerFilter/dip_2024_hw3_material/cameraman.tif")  # read the image
 
 x = np.array(x, dtype=np.float32)  # convert the image to a numpy array of floats
 x = x / 255.0  # normalize the image to [0,1]
@@ -28,12 +29,12 @@ y = y0 + v
 
 
 k_opt, Jmin = find_optimal_k(x, y, h)  # find the optimal k
+plot_region_optimal(k_opt, y, h, x)  # plot J values in region around the optimal k
 print(k_opt, Jmin)
 x_hat = my_wiener_filter(y, h, k_opt)  # apply the Wiener filter
 J = (x - x_hat) ** 2
-print(J.min())
-x_inv0 = inverse_filter(y0, h, 14)  # apply the inverse filter to the noiseless image
-x_inv = inverse_filter(y, h, 14)  # apply the inverse filter to the noisy image
+x_inv0 = inverse_filter(y0, h, k_opt)  # apply the inverse filter to the noiseless image
+x_inv = inverse_filter(y, h, k_opt)  # apply the inverse filter to the noisy image
 
 fig, axs = plt.subplots(nrows=2, ncols=3)  # create a figure with 2 rows and 3 columns
 
